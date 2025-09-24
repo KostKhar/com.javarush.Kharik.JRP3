@@ -1,10 +1,16 @@
 import lombok.Data;
+import lombok.Getter;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Data
+@Getter
 public class Quest {
-    private int id;
-    private List<Question> questions;
+    private Long id;
+    private String name;
+    private String description;
+    private Question startQuestion;
+    private Map<Long, Question> questions = new HashMap<>();
 }

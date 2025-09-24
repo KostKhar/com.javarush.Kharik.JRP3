@@ -1,12 +1,11 @@
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class Answer {
-    private String answer;
-    private Question question;
-
-    public Answer(String answer, Question question) {
-        this.answer = answer;
-        this.question = question;
-    }
+    private Long id;
+    private String answerText;
+    private Long nextQuestionId;
+    private Question nextQuestion;
 }
