@@ -11,6 +11,7 @@ public class Quest {
     private Long id;
     private String name;
     private String description;
+    private Long startQuestionId;
     private Question startQuestion;
     private Map<Long, Question> questions = new HashMap<>();
 }

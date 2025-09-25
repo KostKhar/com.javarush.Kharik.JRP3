@@ -12,28 +12,41 @@ public class StartServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
-        getServletContext().getRequestDispatcher("/start.jsp").forward(req, resp);
 
-        HttpSession session =  req.getSession();
+        HttpSession session = req.getSession();
 
         Quest quest = new Quest();
+        session.setAttribute("currentQuest", quest);
+
         req.setAttribute("header", "Привет, Амиго! Хочешь стать программистом?");
-        req.setAttribute("answer1", "да!");
-        req.setAttribute("answer2", "нет");
+        req.setAttribute("answer1", "Да!");
+        req.setAttribute("answer2", "Нет");
 
-        String answer1 = req.getParameter("answer1");
-        String answer2 = req.getParameter("answer1");
+        req.getRequestDispatcher("/start.jsp").forward(req, resp);
+    }
 
-        if(answer1 == null || answer2 == null) {
-            req.setAttribute("error", "Друг, выбери вариант ответа");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+        String answer = req.getParameter("answer");
+
+        // Проверяем, что ответ присутствует
+        if(answer == null || answer.trim().isEmpty()) {
+            req.setAttribute("error", "Пожалуйста, выберите ответ");
+            req.getRequestDispatcher("/start.jsp").forward(req, resp);
             return;
         }
 
-        if(!answer1.isEmpty()){
-            getServletContext().getRequestDispatcher("/next.jsp").forward(req, resp);
+        // Обрабатываем ответ
+        if("yes".equals(answer)){
+            req.setAttribute("header", "Отлично! Ты выбрал Java!");
+            req.setAttribute("answer1", "Учить Spring");
+            req.setAttribute("answer2", "Учить Hibernate");
+            req.getRequestDispatcher("/next.jsp").forward(req, resp);
         } else {
-            getServletContext().getRequestDispatcher("/fail.jsp").forward(req, resp);
+            req.setAttribute("header", "Жаль... Может передумаешь?");
+            req.getRequestDispatcher("/fail.jsp").forward(req, resp);
         }
-
     }
 }

@@ -1,0 +1,93 @@
+{
+  "id": 1,
+  "name": "IT Career Quest",
+  "startQuestionId": 1,
+  "questions": [
+    {
+      "id": 1,
+      "questionText": "Хочешь стать программистом?",
+      "answers": [
+        {
+          "id": 11,
+          "answerText": "Конечно хочу!",
+          "nextNodeId": 2
+        },
+        {
+          "id": 12,
+          "answerText": "Пока сомневаюсь",
+          "nextNodeId": 5
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "questionText": "Нужно учиться каждый день минимум два часа. Готов?",
+      "answers": [
+        {
+          "id": 21,
+          "answerText": "Могу попробовать и 3",
+          "nextNodeId": 3
+        },
+        {
+          "id": 22,
+          "answerText": "Два часа слишком много, не готов",
+          "nextNodeId": 5
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "questionText": "Нужно купить подписку на Java Rush. Есть деньги?",
+      "answers": [
+        {
+          "id": 31,
+          "answerText": "Найду",
+          "nextNodeId": 4
+        },
+        {
+          "id": 32,
+          "answerText": "Нет, это слишком дорого",
+          "nextNodeId": 5
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "questionText": "Пройти все квесты на Java Rush?",
+      "answers": [
+        {
+          "id": 41,
+          "answerText": "Вперед",
+          "nextNodeId": 6
+        },
+        {
+          "id": 42,
+          "answerText": "Там много задач",
+          "nextNodeId": 5
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "questionText": "Ты проиграл, попробуй еще",
+      "answers": [
+        {
+          "id": 51,
+          "answerText": "Я готов попробовать заново!",
+          "nextNodeId": 1
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "questionText": "Ты победил, красавчик!",
+      "answers": [
+        {
+          "id": 61,
+          "answerText": "Я готов попробовать заново!",
+          "nextNodeId": 1
+        }
+      ]
+    }
+  ]
+}

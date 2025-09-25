@@ -8,5 +8,4 @@ public class Answer {
     private String answerText;
     private Long nextQuestionId;
     private Question nextQuestion;
-    private Type type;
 }
