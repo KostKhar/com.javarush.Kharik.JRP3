@@ -17,12 +17,12 @@ public class StartServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         Quest quest = new Quest();
-        quest.setQuest(Path.of("src/main/resources/quest.json"));
+        quest.setQuest(Path.of("quest.json"));
         session.setAttribute("currentQuest", quest);
 
-        req.setAttribute("header", "Привет, Амиго! Хочешь стать программистом?");
-        req.setAttribute("yes", "Да!");
-        req.setAttribute("no", "Нет");
+        req.setAttribute("header", quest.getDescription());
+        req.setAttribute("yes", quest.getStartQuestion().getQuestionText());
+        req.setAttribute("no",  quest.getStartQuestion().getAnswers().get(0));
 
         req.getRequestDispatcher("/start.jsp").forward(req, resp);
     }
