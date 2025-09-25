@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 @WebServlet(name = "StartServlet", value = "/")
 public class StartServlet extends HttpServlet {
@@ -16,11 +17,12 @@ public class StartServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         Quest quest = new Quest();
+        quest.setQuest(Path.of("src/main/resources/quest.json"));
         session.setAttribute("currentQuest", quest);
 
         req.setAttribute("header", "Привет, Амиго! Хочешь стать программистом?");
-        req.setAttribute("answer1", "Да!");
-        req.setAttribute("answer2", "Нет");
+        req.setAttribute("yes", "Да!");
+        req.setAttribute("no", "Нет");
 
         req.getRequestDispatcher("/start.jsp").forward(req, resp);
     }

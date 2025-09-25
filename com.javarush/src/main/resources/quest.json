@@ -2,6 +2,7 @@
   "id": 1,
   "name": "IT Career Quest",
   "startQuestionId": 1,
+  "description": "История начинается с того, что ты просыпаешься и понимаешь, что тебя съедает рутина и хочется чего то нового",
   "questions": [
     {
       "id": 1,
@@ -10,12 +11,14 @@
         {
           "id": 11,
           "answerText": "Конечно хочу!",
-          "nextNodeId": 2
+          "nextNodeId": 2,
+          "type": "NEXT"
         },
         {
           "id": 12,
           "answerText": "Пока сомневаюсь",
-          "nextNodeId": 5
+          "nextNodeId": 5,
+          "type": "FINISH"
         }
       ]
     },
@@ -26,12 +29,16 @@
         {
           "id": 21,
           "answerText": "Могу попробовать и 3",
-          "nextNodeId": 3
+          "nextNodeId": 3,
+          "type": "NEXT"
+
         },
         {
           "id": 22,
           "answerText": "Два часа слишком много, не готов",
-          "nextNodeId": 5
+          "nextNodeId": 5,
+          "type": "FINISH"
+
         }
       ]
     },
@@ -42,12 +49,15 @@
         {
           "id": 31,
           "answerText": "Найду",
-          "nextNodeId": 4
+          "nextNodeId": 4,
+          "type": "NEXT"
         },
         {
           "id": 32,
           "answerText": "Нет, это слишком дорого",
-          "nextNodeId": 5
+          "nextNodeId": 5,
+          "type": "FINISH"
+
         }
       ]
     },
@@ -58,12 +68,16 @@
         {
           "id": 41,
           "answerText": "Вперед",
-          "nextNodeId": 6
+          "nextNodeId": 6,
+          "type": "NEXT"
+
         },
         {
           "id": 42,
           "answerText": "Там много задач",
-          "nextNodeId": 5
+          "nextNodeId": 5,
+          "type": "FINISH"
+
         }
       ]
     },
@@ -74,7 +88,8 @@
         {
           "id": 51,
           "answerText": "Я готов попробовать заново!",
-          "nextNodeId": 1
+          "nextNodeId": 1,
+          "type": "NEXT"
         }
       ]
     },
@@ -85,7 +100,9 @@
         {
           "id": 61,
           "answerText": "Я готов попробовать заново!",
-          "nextNodeId": 1
+          "nextNodeId": 1,
+          "type": "NEXT"
+
         }
       ]
     }
