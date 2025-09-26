@@ -23,12 +23,16 @@
         <form action="start" method="post">
             <input type="hidden" name="name" value="123">
             <div class="d-inline-flex gap-3 mt-4">
-                 <button type="submit"  name="answer" value="yes" class="btn btn-primary" data-bs-toggle="button">
-                                <a> Я готов попробовать заново! </a>
-                    </button>
+                <button type="submit" name="answer" value="yes" class="btn btn-primary btn-lg">
+                    <%= request.getAttribute("yes") %>
+                </button>
+                <button type="submit" name="answer" value="no" class="btn btn-secondary btn-lg">
+                    <%= request.getAttribute("no") %>
+                </button>
             </div>
         </form>
- <img src="/static/images/fatDev.jpeg" alt="Начать заново" class="mt-4" width="400">
+
+        <img src="/static/images/main.jpeg" alt="Программирование" class="mt-4" width="400">
     </div>
 </body>
 </html>

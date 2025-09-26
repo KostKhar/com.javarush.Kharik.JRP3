@@ -8,13 +8,13 @@
                 "questionText": "Хочешь стать программистом?",
                 "answers": [
                   {
-                    "id": 11,
+                    "id": 1,
                     "answerText": "Конечно хочу!",
                     "nextQuestionId": 2,
                     "type": "NEXT"
                   },
                   {
-                    "id": 12,
+                    "id": 2,
                     "answerText": "Пока сомневаюсь",
                     "nextQuestionId": 5,
                     "type": "FINISH"
@@ -22,87 +22,87 @@
                 ]
                 },
   "questions": [
-    {
-      "id": 2,
-      "questionText": "Нужно учиться каждый день минимум два часа. Готов?",
-      "answers": [
         {
-          "id": 21,
-          "answerText": "Могу попробовать и 3",
-          "nextQuestionId": 3,
-          "type": "NEXT"
+          "id": 2,
+          "questionText": "Нужно учиться каждый день минимум два часа. Готов?",
+          "answers": [
+            {
+              "id": 1,
+              "answerText": "Могу попробовать и 3",
+              "nextQuestionId": 3,
+              "type": "NEXT"
 
+            },
+            {
+              "id": 2,
+              "answerText": "Два часа слишком много, не готов",
+              "nextQuestionId": 5,
+              "type": "FINISH"
+            }
+          ]
         },
         {
-          "id": 22,
-          "answerText": "Два часа слишком много, не готов",
-          "nextQuestionId": 5,
-          "type": "FINISH"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "questionText": "Нужно купить подписку на Java Rush. Есть деньги?",
-      "answers": [
-        {
-          "id": 31,
-          "answerText": "Найду",
-          "nextQuestionId": 4,
-          "type": "NEXT"
+          "id": 3,
+          "questionText": "Нужно купить подписку на Java Rush. Есть деньги?",
+          "answers": [
+            {
+              "id": 1,
+              "answerText": "Найду",
+              "nextQuestionId": 4,
+              "type": "NEXT"
+            },
+            {
+              "id": 2,
+              "answerText": "Нет, это слишком дорого",
+              "nextQuestionId": 5,
+              "type": "FINISH"
+
+            }
+          ]
         },
         {
-          "id": 32,
-          "answerText": "Нет, это слишком дорого",
-          "nextQuestionId": 5,
-          "type": "FINISH"
+          "id": 4,
+          "questionText": "Пройти все квесты на Java Rush?",
+          "answers": [
+            {
+              "id": 1,
+              "answerText": "Вперед",
+              "nextQuestionId": 6,
+              "type": "NEXT"
 
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "questionText": "Пройти все квесты на Java Rush?",
-      "answers": [
-        {
-          "id": 41,
-          "answerText": "Вперед",
-          "nextQuestionId": 6,
-          "type": "NEXT"
+            },
+            {
+              "id": 2,
+              "answerText": "Там много задач",
+              "nextQuestionId": 5,
+              "type": "FINISH"
 
+            }
+          ]
         },
         {
-          "id": 42,
-          "answerText": "Там много задач",
-          "nextQuestionId": 5,
-          "type": "FINISH"
-
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "questionText": "Ты проиграл, попробуй еще",
-      "answers": [
+          "id": 5,
+          "questionText": "Ты проиграл, попробуй еще",
+          "answers": [
+            {
+              "id": 1,
+              "answerText": "Я готов попробовать заново!",
+              "nextQuestionId": 1,
+              "type": "NEXT"
+            }
+          ]
+        },
         {
-          "id": 51,
-          "answerText": "Я готов попробовать заново!",
-          "nextQuestionId": 1,
-          "type": "NEXT"
+          "id": 6,
+          "questionText": "Ты победил, красавчик!",
+          "answers": [
+            {
+              "id": 1,
+              "answerText": "Я готов попробовать заново!",
+              "nextQuestionId": 1,
+              "type": "NEXT"
+            }
+          ]
         }
-      ]
-    },
-    {
-      "id": 6,
-      "questionText": "Ты победил, красавчик!",
-      "answers": [
-        {
-          "id": 61,
-          "answerText": "Я готов попробовать заново!",
-          "nextQuestionId": 1,
-          "type": "NEXT"
-        }
-      ]
-    }
   ]
 }

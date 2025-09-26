@@ -1,6 +1,6 @@
-import lombok.Data;
+package quest;
 
-import java.util.Map;
+import lombok.Data;
 
 @Data
 public class Answer {

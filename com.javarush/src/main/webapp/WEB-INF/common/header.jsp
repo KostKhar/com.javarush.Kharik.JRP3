@@ -19,5 +19,6 @@
         }
     </style>
     <title><c:out value="${pageTitle}" default="Квест программиста"/></title>
-    <link rel="stylesheet" href="<c:url value='/webjars/bootstrap/5.3.2/css/bootstrap.min.css' />">
+   <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
 </head>

@@ -1,3 +1,5 @@
+package quest;
+
 import lombok.Data;
 
 import java.util.ArrayList;
