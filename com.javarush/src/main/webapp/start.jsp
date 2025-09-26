@@ -11,12 +11,13 @@
          </c:if>
 
          <form action="start" method="post">
+         <input name = "name" value="123" >
              <div class="d-inline-flex gap-3 mt-4">
                  <button type="submit" name="answer" value="yes" class="btn btn-primary btn-lg">
-                     <%=
+                     <%= %>
                  </button>
                  <button type="submit" name="answer" value="no" class="btn btn-secondary btn-lg">
-                     ${answer2}
+                     <%= %>
                  </button>
              </div>
          </form>

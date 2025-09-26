@@ -11,8 +11,8 @@
             <button type="submit" name="answer" class="btn btn-primary" data-bs-toggle="button" aria-pressed="true">
                 <%= request.getParameter("answer2") != null ? request.getParameter("answer2") : "Пока сомневаюсь" %>
             </button>
-        </p>
- </form>
+ </p>
+
         <script src="<c:url value='/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js' />"></script>
         <img src="<c:url value='src/main/resources/static/images/main.jpeg'/>" alt="Программирование" width="600" height="600"/>
     </div>
