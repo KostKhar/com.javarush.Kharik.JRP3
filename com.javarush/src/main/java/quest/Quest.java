@@ -28,10 +28,15 @@ public class Quest {
                 throw new RuntimeException("Файл не найден.");
             }
             Quest loadedQuest = objectMapper.readValue(inputStream, Quest.class);
+            this.id = loadedQuest.getId();
+            this.name = loadedQuest.getName();
             this.description = loadedQuest.getDescription();
+            this.startQuestionId= loadedQuest.getStartQuestionId();
             this.startQuestion = loadedQuest.getStartQuestion();
+            this.questions = loadedQuest.getQuestions();
         } catch (Exception e) {
             throw new RuntimeException("Ошибка загрузки квеста: " + e.getMessage(), e);
         }
     }
+
 }

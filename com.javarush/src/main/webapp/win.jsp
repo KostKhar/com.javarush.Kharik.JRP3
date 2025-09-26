@@ -27,7 +27,7 @@
                     </button>
             </div>
         </form>
- <img src="/static/images/gameOver.jpeg" alt="Game Over" class="mt-4" width="400">
+ <img src="/static/images/fatDev.jpeg" alt="Winner" class="mt-4" width="400">
     </div>
 </body>
 </html>

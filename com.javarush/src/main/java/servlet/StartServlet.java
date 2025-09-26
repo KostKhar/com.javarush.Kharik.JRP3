@@ -7,12 +7,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import quest.Quest;
+import quest.Question;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 @WebServlet(name = "servlet.StartServlet", value = "/start")
 public class StartServlet extends HttpServlet {
+    private long idQuestion;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
@@ -22,9 +24,9 @@ public class StartServlet extends HttpServlet {
         Quest quest = new Quest();
         quest.setQuest(Path.of("quest.json"));
         session.setAttribute("currentQuest", quest);
+        this.idQuestion = quest.getId();
 
-        req.setAttribute("name", quest.getId());
-        System.out.println(quest.getName());
+        req.setAttribute("name", quest.getName());
         req.setAttribute("description", quest.getDescription());
 
         req.setAttribute("yes", quest.getStartQuestion().getAnswers().get(0).getAnswerText());
@@ -46,11 +48,11 @@ public class StartServlet extends HttpServlet {
 //            return;
 //        }
 
-        // Обрабатываем ответ
         if("yes".equals(answer)){
-            req.setAttribute("header", "Отлично! Ты выбрал Java!");
-            req.setAttribute("answer1", "Учить Spring");
-            req.setAttribute("answer2", "Учить Hibernate");
+//            Question question = quest.get
+            req.setAttribute("name", "Отлично! Ты выбрал Java!");
+//            req.setAttribute("yes",);
+            req.setAttribute("no", "Учить Hibernate");
             req.getRequestDispatcher("/main.jsp").forward(req, resp);
         } else {
             req.setAttribute("header", "Жаль... Может передумаешь?");

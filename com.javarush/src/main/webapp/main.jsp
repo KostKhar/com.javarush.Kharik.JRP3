@@ -11,19 +11,9 @@
 
         <p><%= request.getAttribute("description") %></p>
 
-        <%
-            String error = (String) request.getAttribute("error");
-            if (error != null && !error.isEmpty()) {
-        %>
-            <div class="alert alert-danger"><%= error %></div>
-        <%
-            }
-        %>
-
         <form action="start" method="post">
-            <input type="hidden" name="name" value="123">
             <div class="d-inline-flex gap-3 mt-4">
-                <button type="submit" name="answer" value="yes" class="btn btn-primary btn-lg">
+                <button type="submit" name="answer" value = "yes" class="btn btn-primary btn-lg">
                     <%= request.getAttribute("yes") %>
                 </button>
                 <button type="submit" name="answer" value="no" class="btn btn-secondary btn-lg">

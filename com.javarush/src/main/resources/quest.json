@@ -4,23 +4,23 @@
   "startQuestionId": 1,
   "description": "История начинается с того, что ты просыпаешься и понимаешь, что тебя съедает рутина и хочется чего то нового",
   "startQuestion" : {
-                 "id": 1,
-                "questionText": "Хочешь стать программистом?",
-                "answers": [
-                  {
-                    "id": 1,
-                    "answerText": "Конечно хочу!",
-                    "nextQuestionId": 2,
-                    "type": "NEXT"
-                  },
-                  {
-                    "id": 2,
-                    "answerText": "Пока сомневаюсь",
-                    "nextQuestionId": 5,
-                    "type": "FINISH"
-                  }
-                ]
-                },
+    "id": 1,
+    "questionText": "Хочешь стать программистом?",
+    "answers": [
+      {
+        "id": 1,
+        "answerText": "Конечно хочу!",
+        "nextQuestionId": 2,
+        "type": "NEXT"
+      },
+      {
+        "id": 2,
+        "answerText": "Пока сомневаюсь",
+        "nextQuestionId": 5,
+        "type": "FINISH"
+      }
+    ]
+  },
   "questions": [
         {
           "id": 2,
@@ -94,11 +94,11 @@
         },
         {
           "id": 6,
-          "questionText": "Ты победил, красавчик!",
+          "questionText": "Отлично! Ты выбрал Java!",
           "answers": [
             {
               "id": 1,
-              "answerText": "Я готов попробовать заново!",
+              "answerText": "Давай попробуем другой язык программирования?",
               "nextQuestionId": 1,
               "type": "NEXT"
             }
