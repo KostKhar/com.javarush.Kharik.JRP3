@@ -16,8 +16,8 @@ public class Quest {
     private Long id;
     private String name;
     private String description;
-    private Long startQuestionId;
-    private Question startQuestion;
+    private Long currentQuestionId;
+    private Question currentQuestion;
     private List<Question> questions = new LinkedList<>();
 
 
@@ -31,8 +31,8 @@ public class Quest {
             this.id = loadedQuest.getId();
             this.name = loadedQuest.getName();
             this.description = loadedQuest.getDescription();
-            this.startQuestionId= loadedQuest.getStartQuestionId();
-            this.startQuestion = loadedQuest.getStartQuestion();
+            this.currentQuestionId = loadedQuest.getCurrentQuestionId();
+            this.currentQuestion = loadedQuest.getCurrentQuestion();
             this.questions = loadedQuest.getQuestions();
         } catch (Exception e) {
             throw new RuntimeException("Ошибка загрузки квеста: " + e.getMessage(), e);

@@ -13,10 +13,11 @@
 
         <form action="start" method="post">
             <div class="d-inline-flex gap-3 mt-4">
-                <button type="submit" name="answer" value = "yes" class="btn btn-primary btn-lg">
+                <p><%= request.getAttribute("question") %></p>
+                <button type="submit" name="answer" value = <%= request.getAttribute("yes") %> class="btn btn-primary btn-lg">
                     <%= request.getAttribute("yes") %>
                 </button>
-                <button type="submit" name="answer" value="no" class="btn btn-secondary btn-lg">
+                <button type="submit" name="answer" value = <%= request.getAttribute("no") %> class="btn btn-secondary btn-lg">
                     <%= request.getAttribute("no") %>
                 </button>
             </div>

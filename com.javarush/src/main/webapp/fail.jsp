@@ -22,8 +22,9 @@
 
         <form action="start" method="post">
             <div class="d-inline-flex gap-3 mt-4">
-                 <button type="submit"  name="answer" value="yes" class="btn btn-primary" data-bs-toggle="button">
-                                <a> Я готов попробовать заново! </a>
+             <p><%= request.getAttribute("question") %></p>
+                 <button type="submit"  name="answer"value = <%= request.getAttribute("yes")  %> class="btn btn-primary" data-bs-toggle="button">
+                                <a> <%= request.getAttribute("yes") </a>
                     </button>
             </div>
         </form>

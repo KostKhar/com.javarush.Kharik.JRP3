@@ -1,9 +1,9 @@
 {
   "id": 1,
   "name": "IT Career Quest",
-  "startQuestionId": 1,
+  "currentQuestionId": 1,
   "description": "История начинается с того, что ты просыпаешься и понимаешь, что тебя съедает рутина и хочется чего то нового",
-  "startQuestion" : {
+  "currentQuestion" : {
     "id": 1,
     "questionText": "Хочешь стать программистом?",
     "answers": [
@@ -22,6 +22,24 @@
     ]
   },
   "questions": [
+      {
+        "id": 1,
+        "questionText": "Хочешь стать программистом?",
+        "answers": [
+          {
+            "id": 1,
+            "answerText": "Конечно хочу!",
+            "nextQuestionId": 2,
+            "type": "NEXT"
+          },
+          {
+            "id": 2,
+            "answerText": "Пока сомневаюсь",
+            "nextQuestionId": 5,
+            "type": "FINISH"
+          }
+        ]
+      },
         {
           "id": 2,
           "questionText": "Нужно учиться каждый день минимум два часа. Готов?",

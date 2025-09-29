@@ -12,25 +12,26 @@ import quest.Question;
 import java.io.IOException;
 import java.nio.file.Path;
 
-@WebServlet(name = "servlet.StartServlet", value = "/start")
+@WebServlet(name = "StartServlet", value = "/start")
 public class StartServlet extends HttpServlet {
-    private long idQuestion;
+    private Quest quest = new Quest();
+    private Question currentQuestion;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
         HttpSession session = req.getSession();
 
-        Quest quest = new Quest();
-        quest.setQuest(Path.of("quest.json"));
+        this.quest.setQuest(Path.of("quest.json"));
         session.setAttribute("currentQuest", quest);
-        this.idQuestion = quest.getId();
+        currentQuestion = quest.getCurrentQuestion();
 
         req.setAttribute("name", quest.getName());
         req.setAttribute("description", quest.getDescription());
 
-        req.setAttribute("yes", quest.getStartQuestion().getAnswers().get(0).getAnswerText());
-        req.setAttribute("no",  quest.getStartQuestion().getAnswers().get(1).getAnswerText());
+        req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
+        req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
+        req.setAttribute("no",  quest.getCurrentQuestion().getAnswers().get(1).getAnswerText());
 
         req.getRequestDispatcher("/main.jsp").forward(req, resp);
     }
@@ -48,14 +49,21 @@ public class StartServlet extends HttpServlet {
 //            return;
 //        }
 
-        if("yes".equals(answer)){
-//            Question question = quest.get
-            req.setAttribute("name", "Отлично! Ты выбрал Java!");
-//            req.setAttribute("yes",);
-            req.setAttribute("no", "Учить Hibernate");
+        if(answer.equals(quest.getCurrentQuestion().getAnswers().get(0).getAnswerText())){
+            currentQuestion = currentQuestion.getAnswers().get(0).getNextQuestion();
+
+            req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
+            req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
+            req.setAttribute("no",  quest.getCurrentQuestion().getAnswers().get(1).getAnswerText());
+
             req.getRequestDispatcher("/main.jsp").forward(req, resp);
         } else {
-            req.setAttribute("header", "Жаль... Может передумаешь?");
+            currentQuestion = currentQuestion.getAnswers().get(1).getNextQuestion();
+
+            req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
+            req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
+            req.setAttribute("no",  quest.getCurrentQuestion().getAnswers().get(1).getAnswerText());
+
             req.getRequestDispatcher("/fail.jsp").forward(req, resp);
         }
     }
