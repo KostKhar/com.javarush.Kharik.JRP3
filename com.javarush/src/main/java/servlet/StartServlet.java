@@ -6,32 +6,41 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import quest.Answer;
 import quest.Quest;
 import quest.Question;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "StartServlet", value = "/start")
 public class StartServlet extends HttpServlet {
-    private Quest quest = new Quest();
-    private Question currentQuestion;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
         HttpSession session = req.getSession();
 
-        this.quest.setQuest(Path.of("quest.json"));
-        session.setAttribute("currentQuest", quest);
-        currentQuestion = quest.getCurrentQuestion();
+        // Создаем новый квест или получаем существующий из сессии
+        Quest quest = (Quest) session.getAttribute("currentQuest");
+        if (quest == null) {
+            quest = new Quest();
+            quest.setQuest(Path.of("quest.json"));
+            session.setAttribute("currentQuest", quest);
+        }
+
+        Question currentQuestion = quest.getCurrentQuestion();
+        session.setAttribute("currentQuestion", currentQuestion);
 
         req.setAttribute("name", quest.getName());
         req.setAttribute("description", quest.getDescription());
+        req.setAttribute("question", currentQuestion.getQuestionText());
 
-        req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
-        req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
-        req.setAttribute("no",  quest.getCurrentQuestion().getAnswers().get(1).getAnswerText());
+        List<Answer> answers = currentQuestion.getAnswers();
+        req.setAttribute("yes", answers.get(0).getAnswerText());
+        req.setAttribute("no",   answers.get(1).getAnswerText());
 
         req.getRequestDispatcher("/main.jsp").forward(req, resp);
     }
@@ -41,30 +50,65 @@ public class StartServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String answer = req.getParameter("answer");
-//
-//        // Проверяем, что ответ присутствует
-//        if(answer == null || answer.trim().isEmpty()) {
-//            req.setAttribute("error", "Пожалуйста, выберите ответ");
-//            req.getRequestDispatcher("/main.jsp").forward(req, resp);
+
+        Quest quest = (Quest) session.getAttribute("currentQuest");
+        Question currentQuestion = (Question) session.getAttribute("currentQuestion");
+
+//        if (quest == null || currentQuestion == null) {
+//            resp.sendRedirect(req.getContextPath() + "/start");
 //            return;
 //        }
 
-        if(answer.equals(quest.getCurrentQuestion().getAnswers().get(0).getAnswerText())){
-            currentQuestion = currentQuestion.getAnswers().get(0).getNextQuestion();
+        Question nextQuestion = null;
 
-            req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
-            req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
-            req.setAttribute("no",  quest.getCurrentQuestion().getAnswers().get(1).getAnswerText());
-
-            req.getRequestDispatcher("/main.jsp").forward(req, resp);
+        if(answer.equals("yes")){
+            int id =  currentQuestion.getAnswers().get(0).getNextQuestionId();
+            if (id == quest.getQuestions().size()-1) {
+                req.getRequestDispatcher("/win.jsp").forward(req, resp);
+            }
+            nextQuestion = quest.getQuestions().get(id);
         } else {
-            currentQuestion = currentQuestion.getAnswers().get(1).getNextQuestion();
-
-            req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
-            req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
-            req.setAttribute("no",  quest.getCurrentQuestion().getAnswers().get(1).getAnswerText());
-
-            req.getRequestDispatcher("/fail.jsp").forward(req, resp);
+            nextQuestion = quest.getQuestions().get(currentQuestion.getAnswers().get(1).getNextQuestionId());
         }
+
+        if (nextQuestion != null) {
+            // Обновляем текущий вопрос
+            quest.setCurrentQuestion(nextQuestion);
+            session.setAttribute("currentQuestion", nextQuestion);
+
+            // Показываем следующую страницу с вопросом
+            showCurrentQuestion(req, resp, nextQuestion, quest);
+
+        } else {
+            // Конец квеста
+            session.removeAttribute("currentQuest");
+            session.removeAttribute("currentQuestion");
+
+            req.setAttribute("name", quest.getName());
+            req.setAttribute("description", quest.getDescription());
+
+            if (answer.equals("yes")) {
+                req.getRequestDispatcher("/main.jsp").forward(req, resp);
+            } else {
+                req.getRequestDispatcher("/fail.jsp").forward(req, resp);
+            }
+        }
+    }
+    // Вспомогательный метод для показа вопроса
+    private void showCurrentQuestion(HttpServletRequest req, HttpServletResponse resp,
+                                     Question question, Quest quest)
+            throws ServletException, IOException {
+
+        req.setAttribute("name", quest.getName());
+        req.setAttribute("description", quest.getDescription());
+        req.setAttribute("question", question.getQuestionText());
+
+        List<Answer> answers = question.getAnswers();
+        if (answers.size() >= 2) {
+            req.setAttribute("yes", answers.get(0).getAnswerText());
+            req.setAttribute("no", answers.get(1).getAnswerText());
+        }
+
+        req.getRequestDispatcher("/main.jsp").forward(req, resp);
     }
 }

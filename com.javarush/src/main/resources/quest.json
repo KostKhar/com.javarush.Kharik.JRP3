@@ -5,41 +5,41 @@
   "description": "История начинается с того, что ты просыпаешься и понимаешь, что тебя съедает рутина и хочется чего то нового",
   "currentQuestion" : {
     "id": 1,
-    "questionText": "Хочешь стать программистом?",
+    "questionText": "Хочешь начать карьеру в IT?",
     "answers": [
       {
         "id": 1,
-        "answerText": "Конечно хочу!",
+        "answerText": "конечно!",
         "nextQuestionId": 2,
         "type": "NEXT"
       },
       {
         "id": 2,
-        "answerText": "Пока сомневаюсь",
+        "answerText": "нет, повременю",
         "nextQuestionId": 5,
         "type": "FINISH"
       }
     ]
   },
   "questions": [
-      {
-        "id": 1,
-        "questionText": "Хочешь стать программистом?",
-        "answers": [
-          {
-            "id": 1,
-            "answerText": "Конечно хочу!",
-            "nextQuestionId": 2,
-            "type": "NEXT"
-          },
-          {
-            "id": 2,
-            "answerText": "Пока сомневаюсь",
-            "nextQuestionId": 5,
-            "type": "FINISH"
-          }
-        ]
-      },
+    {
+      "id": 1,
+      "questionText": "Do you  want to start IT career?",
+      "answers": [
+        {
+          "id": 1,
+          "answerText": "I_really_want_to_start",
+          "nextQuestionId": 2,
+          "type": "NEXT"
+        },
+        {
+          "id": 2,
+          "answerText": "I'll_wait_for_now",
+          "nextQuestionId": 5,
+          "type": "FINISH"
+        }
+      ]
+    },
         {
           "id": 2,
           "questionText": "Нужно учиться каждый день минимум два часа. Готов?",

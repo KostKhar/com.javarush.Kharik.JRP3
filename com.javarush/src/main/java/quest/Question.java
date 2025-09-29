@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class Question {
-    private Long id;
+    private Integer id;
     private String questionText;
     private List<Answer> answers = new ArrayList<>();
 

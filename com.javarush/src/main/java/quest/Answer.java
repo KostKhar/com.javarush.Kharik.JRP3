@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Answer {
-    private Long id;
+    private Integer id;
     private String answerText;
-    private Long nextQuestionId;
+    private Integer nextQuestionId;
     private Question nextQuestion;
     private Type type;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Getter
 public class Quest {
-    private Long id;
+    private Integer id;
     private String name;
     private String description;
     private Long currentQuestionId;

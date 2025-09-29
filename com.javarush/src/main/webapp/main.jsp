@@ -11,17 +11,17 @@
 
         <p><%= request.getAttribute("description") %></p>
 
-        <form action="start" method="post">
-            <div class="d-inline-flex gap-3 mt-4">
-                <p><%= request.getAttribute("question") %></p>
-                <button type="submit" name="answer" value = <%= request.getAttribute("yes") %> class="btn btn-primary btn-lg">
-                    <%= request.getAttribute("yes") %>
-                </button>
-                <button type="submit" name="answer" value = <%= request.getAttribute("no") %> class="btn btn-secondary btn-lg">
-                    <%= request.getAttribute("no") %>
-                </button>
-            </div>
-        </form>
+        <h2><%= request.getAttribute("question") %></h2>
+    <form action="start" method="post">
+        <div class="d-inline-flex gap-3 mt-4">
+            <button type="submit" name="answer" value="yes" class="btn btn-primary btn-lg">
+                 <%= request.getAttribute("yes")  %>
+            </button>
+            <button type="submit" name="answer" value="no" class="btn btn-secondary btn-lg">
+                 <%= request.getAttribute("no")  %>
+            </button>
+        </div>
+    </form>
 
         <img src="/static/images/main.jpeg" alt="Программирование" class="mt-4" width="400">
     </div>
