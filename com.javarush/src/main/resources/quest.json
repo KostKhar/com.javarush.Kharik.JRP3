@@ -10,33 +10,29 @@
       {
         "id": 1,
         "answerText": "конечно!",
-        "nextQuestionId": 2,
-        "type": "NEXT"
+        "nextQuestionId": 2
       },
       {
         "id": 2,
         "answerText": "нет, повременю",
-        "nextQuestionId": 5,
-        "type": "FINISH"
+        "nextQuestionId": 5
       }
     ]
   },
   "questions": [
     {
       "id": 1,
-      "questionText": "Do you  want to start IT career?",
+      "questionText": "Хочешь начать карьеру в IT?",
       "answers": [
         {
           "id": 1,
-          "answerText": "I_really_want_to_start",
-          "nextQuestionId": 2,
-          "type": "NEXT"
+          "answerText": "конечно!",
+          "nextQuestionId": 2
         },
         {
           "id": 2,
-          "answerText": "I'll_wait_for_now",
-          "nextQuestionId": 5,
-          "type": "FINISH"
+          "answerText": "нет, повременю",
+          "nextQuestionId": 5
         }
       ]
     },
@@ -47,15 +43,12 @@
             {
               "id": 1,
               "answerText": "Могу попробовать и 3",
-              "nextQuestionId": 3,
-              "type": "NEXT"
-
+              "nextQuestionId": 3
             },
             {
               "id": 2,
               "answerText": "Два часа слишком много, не готов",
-              "nextQuestionId": 5,
-              "type": "FINISH"
+              "nextQuestionId": 5
             }
           ]
         },
@@ -66,15 +59,12 @@
             {
               "id": 1,
               "answerText": "Найду",
-              "nextQuestionId": 4,
-              "type": "NEXT"
+              "nextQuestionId": 4
             },
             {
               "id": 2,
               "answerText": "Нет, это слишком дорого",
-              "nextQuestionId": 5,
-              "type": "FINISH"
-
+              "nextQuestionId": 5
             }
           ]
         },
@@ -85,16 +75,12 @@
             {
               "id": 1,
               "answerText": "Вперед",
-              "nextQuestionId": 6,
-              "type": "NEXT"
-
+              "nextQuestionId": 6
             },
             {
               "id": 2,
               "answerText": "Там много задач",
-              "nextQuestionId": 5,
-              "type": "FINISH"
-
+              "nextQuestionId": 5
             }
           ]
         },
@@ -105,8 +91,7 @@
             {
               "id": 1,
               "answerText": "Я готов попробовать заново!",
-              "nextQuestionId": 1,
-              "type": "NEXT"
+              "nextQuestionId": 1
             }
           ]
         },
@@ -117,8 +102,7 @@
             {
               "id": 1,
               "answerText": "Давай попробуем другой язык программирования?",
-              "nextQuestionId": 1,
-              "type": "NEXT"
+              "nextQuestionId": 1
             }
           ]
         }

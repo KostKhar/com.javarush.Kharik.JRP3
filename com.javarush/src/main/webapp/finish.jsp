@@ -7,9 +7,9 @@
 </head>
 <body>
     <div class="container">
-        <h1><%= request.getAttribute("name") %></h1>
+        <h1> <%= request.getAttribute("name") %> </h1>
 
-        <h1> Поздравляю, ты Senior Java Developer </h1>
+        <h1>  <%= request.getAttribute("question") %> </h1>
 
        <form action="start" method="post">
            <div class="d-inline-flex gap-3 mt-4">
