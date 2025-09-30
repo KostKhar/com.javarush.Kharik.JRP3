@@ -149,6 +149,6 @@ public class StartServlet extends HttpServlet {
             }
         }
         log.error("Question was not found");
-      throw new IllegalArgumentException();
+        throw new IllegalArgumentException();
     }
 }

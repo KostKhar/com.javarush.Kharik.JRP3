@@ -1,33 +1,15 @@
 package quest;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.InputStream;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class QuestTest {
@@ -36,10 +18,10 @@ class QuestTest {
 
     @Test
     void testSetQuest_Success() {
-        Quest quest =  new Quest();
+        Quest quest = new Quest();
 
         // Файл лежит в test/resources
-        Path path = Path.of("src/main/resources/quest.json");
+        Path path = Path.of("quest.json");
 
         quest.setQuest(path);
 
@@ -56,7 +38,9 @@ class QuestTest {
 
         Path path = Path.of("nonexistent.json");
 
-         assertThrows(NullPointerException.class, () -> {questMock.setQuest(path);});
+        assertThrows(NullPointerException.class, () -> {
+            questMock.setQuest(path);
+        });
 
     }
 
@@ -65,7 +49,9 @@ class QuestTest {
         Path invalidJson = tempDir.resolve("bad.json");
         java.nio.file.Files.writeString(invalidJson, "{ invalid json }");
 
-        assertThrows(RuntimeException.class, () -> {questMock.setQuest(invalidJson);});
+        assertThrows(RuntimeException.class, () -> {
+            questMock.setQuest(invalidJson);
+        });
 
     }
 
