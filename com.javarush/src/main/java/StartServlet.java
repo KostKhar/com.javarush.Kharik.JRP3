@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import quest.Answer;
 import quest.Quest;
 import quest.Question;
@@ -12,8 +14,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+
 @WebServlet(name = "StartServlet", value = "/start")
 public class StartServlet extends HttpServlet {
+    static final Logger logger = LoggerFactory.getLogger(StartServlet.class);
+
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
@@ -26,6 +31,7 @@ public class StartServlet extends HttpServlet {
             quest = new Quest();
             quest.setQuest(Path.of("quest.json"));
             session.setAttribute("currentQuest", quest);
+            logger.info("Game start");
         }
 
         Question currentQuestion = quest.getCurrentQuestion();
@@ -45,26 +51,20 @@ public class StartServlet extends HttpServlet {
 
         if (quest == null || currentQuestion == null) {
             resp.sendRedirect(req.getContextPath() + "/start");
+            logger.error("session is blocked");
             return;
         }
 
-        // Проверяем, что ответ присутствует
-        if (answer == null) {
-            req.setAttribute("error", "Пожалуйста, выберите ответ");
-            showQuestion(req, resp, currentQuestion, quest);
-            return;
-        }
 
-        // Определяем индекс выбранного ответа
         int answerIndex;
         if (answer.equals("yes")) {
             answerIndex = 0;
         } else if (answer.equals("no")) {
             answerIndex = 1;
         } else {
-            // Неизвестный ответ
             req.setAttribute("error", "Неверный ответ");
             showQuestion(req, resp, currentQuestion, quest);
+            logger.error("Answer is not supported");
             return;
         }
 
@@ -73,32 +73,29 @@ public class StartServlet extends HttpServlet {
         if (answerIndex >= answers.size()) {
             req.setAttribute("error", "Ошибка: ответ не найден");
             showQuestion(req, resp, currentQuestion, quest);
+            logger.error("answer is incorrect");
             return;
         }
 
-        // Получаем ID следующего вопроса
         int nextQuestionId = answers.get(answerIndex).getNextQuestionId();
 
-        // Проверяем, является ли это концом квеста
         if (nextQuestionId == 0) {
-            // Конец квеста (проигрыш)
             session.removeAttribute("currentQuest");
             session.removeAttribute("currentQuestion");
             req.getRequestDispatcher("/finish.jsp").forward(req, resp);
+            logger.info("User win "+ session.getId());
             return;
         }
 
-        // Ищем следующий вопрос
         Question nextQuestion = findQuestionById(quest, nextQuestionId);
 
         if (nextQuestion == null) {
-            // Вопрос не найден
             req.setAttribute("error", "Ошибка: следующий вопрос не найден");
             showQuestion(req, resp, currentQuestion, quest);
+            logger.error("answer is incorrect");
             return;
         }
 
-        // Обновляем текущий вопрос
         quest.setCurrentQuestion(nextQuestion);
         session.setAttribute("currentQuestion", nextQuestion);
 
@@ -141,7 +138,6 @@ public class StartServlet extends HttpServlet {
 
     private void showFinishPage(HttpServletRequest req, HttpServletResponse resp, Quest quest)
             throws ServletException, IOException {
-
         req.setAttribute("name", quest.getName());
         req.setAttribute("question", quest.getCurrentQuestion().getQuestionText());
         req.setAttribute("yes", quest.getCurrentQuestion().getAnswers().get(0).getAnswerText());
