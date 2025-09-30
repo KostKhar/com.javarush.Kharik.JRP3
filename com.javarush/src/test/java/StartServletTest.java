@@ -38,27 +38,6 @@ class StartServletTest extends HttpServlet {
     private Quest quest;
     private Question question1, question2, finalQuestion;
 
-    @BeforeEach
-    void setUp() {
-        servlet = new StartServlet();
-
-        // Создаем тестовые данные
-        Answer answer1 = new Answer("Yes", 2);
-        Answer answer2 = new Answer("Нет", 1);
-        Answer finalAnswer = new Answer("Завершить", 0);
-
-        question1 = new Question(1, "Первый вопрос", Arrays.asList(answer1, answer2));
-        question2 = new Question(2, "Второй вопрос", Arrays.asList(answer1, answer2));
-        finalQuestion = new Question(3, "Финальный вопрос", Arrays.asList(finalAnswer));
-
-        List<Question> questions = Arrays.asList(question1, question2, finalQuestion);
-        quest = new Quest();
-        quest.setName("Test Quest");
-        quest.setDescription("Test Description");
-        quest.setQuestions(questions);
-        quest.setCurrentQuestion(question1);
-    }
-
     @Test
     void testDoGet_NewSession_ShouldCreateNewQuest() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
@@ -165,13 +144,9 @@ class StartServletTest extends HttpServlet {
 
     @Test
     void testDoPost_AnswerIndexOutOfBounds_ShouldShowError() throws ServletException, IOException {
-        Question questionWithOneAnswer = new Question(4, "Один ответ",
-                Arrays.asList(new Answer("Единственный ответ", 0)));
-        quest.setCurrentQuestion(questionWithOneAnswer);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("currentQuest")).thenReturn(quest);
-        when(session.getAttribute("currentQuestion")).thenReturn(questionWithOneAnswer);
         when(request.getParameter("answer")).thenReturn("no"); // Пытаемся получить второй ответ
         when(request.getRequestDispatcher("/main.jsp")).thenReturn(requestDispatcher);
 
