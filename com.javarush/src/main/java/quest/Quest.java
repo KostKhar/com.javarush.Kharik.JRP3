@@ -2,7 +2,6 @@ package quest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,22 +14,20 @@ import java.util.List;
 @Slf4j
 @Data
 public class Quest {
+    static final Logger logger = LoggerFactory.getLogger(Quest.class);
     private Integer id;
     private String name;
     private String description;
     private Long currentQuestionId;
     private Question currentQuestion;
     private List<Question> questions = new LinkedList<>();
-    static final Logger logger = LoggerFactory.getLogger(Quest.class);
-
-
 
     public void setQuest(Path path) {
         ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path.toString())) {
             if (inputStream == null) {
                 logger.error("Файл не найден.");
-                throw  new NullPointerException();
+                throw new NullPointerException();
             }
             Quest loadedQuest = objectMapper.readValue(inputStream, Quest.class);
             this.id = loadedQuest.getId();

@@ -4,8 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import quest.Answer;
 import quest.Quest;
 import quest.Question;
@@ -15,9 +14,9 @@ import java.nio.file.Path;
 import java.util.List;
 
 
+@Slf4j
 @WebServlet(name = "StartServlet", value = "/start")
 public class StartServlet extends HttpServlet {
-    static final Logger logger = LoggerFactory.getLogger(StartServlet.class);
 
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -31,7 +30,7 @@ public class StartServlet extends HttpServlet {
             quest = new Quest();
             quest.setQuest(Path.of("quest.json"));
             session.setAttribute("currentQuest", quest);
-            logger.info("Game start");
+            log.info("Game start");
         }
 
         Question currentQuestion = quest.getCurrentQuestion();
@@ -51,7 +50,7 @@ public class StartServlet extends HttpServlet {
 
         if (quest == null || currentQuestion == null) {
             resp.sendRedirect(req.getContextPath() + "/start");
-            logger.error("session is blocked");
+            log.error("session is blocked");
             return;
         }
 
@@ -64,7 +63,7 @@ public class StartServlet extends HttpServlet {
         } else {
             req.setAttribute("error", "Неверный ответ");
             showQuestion(req, resp, currentQuestion, quest);
-            logger.error("Answer is not supported");
+            log.error("Answer is not supported");
             return;
         }
 
@@ -73,7 +72,7 @@ public class StartServlet extends HttpServlet {
         if (answerIndex >= answers.size()) {
             req.setAttribute("error", "Ошибка: ответ не найден");
             showQuestion(req, resp, currentQuestion, quest);
-            logger.error("answer is incorrect");
+            log.error("answer is incorrect");
             return;
         }
 
@@ -83,7 +82,7 @@ public class StartServlet extends HttpServlet {
             session.removeAttribute("currentQuest");
             session.removeAttribute("currentQuestion");
             req.getRequestDispatcher("/finish.jsp").forward(req, resp);
-            logger.info("User win "+ session.getId());
+            log.info("User win " + session.getId());
             return;
         }
 
@@ -92,7 +91,7 @@ public class StartServlet extends HttpServlet {
         if (nextQuestion == null) {
             req.setAttribute("error", "Ошибка: следующий вопрос не найден");
             showQuestion(req, resp, currentQuestion, quest);
-            logger.error("answer is incorrect");
+            log.error("answer is incorrect");
             return;
         }
 

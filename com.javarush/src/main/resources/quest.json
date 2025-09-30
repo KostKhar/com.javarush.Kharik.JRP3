@@ -3,7 +3,7 @@
   "name": "IT Career Quest",
   "currentQuestionId": 1,
   "description": "История начинается с того, что ты просыпаешься и понимаешь, что тебя съедает рутина и хочется чего то нового",
-  "currentQuestion" : {
+  "currentQuestion": {
     "id": 1,
     "questionText": "Хочешь начать карьеру в IT?",
     "answers": [
@@ -36,75 +36,75 @@
         }
       ]
     },
+    {
+      "id": 2,
+      "questionText": "Нужно учиться каждый день минимум два часа. Готов?",
+      "answers": [
+        {
+          "id": 1,
+          "answerText": "Могу попробовать и 3",
+          "nextQuestionId": 3
+        },
         {
           "id": 2,
-          "questionText": "Нужно учиться каждый день минимум два часа. Готов?",
-          "answers": [
-            {
-              "id": 1,
-              "answerText": "Могу попробовать и 3",
-              "nextQuestionId": 3
-            },
-            {
-              "id": 2,
-              "answerText": "Два часа слишком много, не готов",
-              "nextQuestionId": 5
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "questionText": "Нужно купить подписку на Java Rush. Есть деньги?",
-          "answers": [
-            {
-              "id": 1,
-              "answerText": "Найду",
-              "nextQuestionId": 4
-            },
-            {
-              "id": 2,
-              "answerText": "Нет, это слишком дорого",
-              "nextQuestionId": 5
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "questionText": "Пройти все квесты на Java Rush?",
-          "answers": [
-            {
-              "id": 1,
-              "answerText": "Вперед",
-              "nextQuestionId": 6
-            },
-            {
-              "id": 2,
-              "answerText": "Там много задач",
-              "nextQuestionId": 5
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "questionText": "Ты проиграл, попробуй еще",
-          "answers": [
-            {
-              "id": 1,
-              "answerText": "Я готов попробовать заново!",
-              "nextQuestionId": 1
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "questionText": "Отлично! Ты выбрал Java!",
-          "answers": [
-            {
-              "id": 1,
-              "answerText": "Давай попробуем другой язык программирования?",
-              "nextQuestionId": 1
-            }
-          ]
+          "answerText": "Два часа слишком много, не готов",
+          "nextQuestionId": 5
         }
+      ]
+    },
+    {
+      "id": 3,
+      "questionText": "Нужно купить подписку на Java Rush. Есть деньги?",
+      "answers": [
+        {
+          "id": 1,
+          "answerText": "Найду",
+          "nextQuestionId": 4
+        },
+        {
+          "id": 2,
+          "answerText": "Нет, это слишком дорого",
+          "nextQuestionId": 5
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "questionText": "Пройти все квесты на Java Rush?",
+      "answers": [
+        {
+          "id": 1,
+          "answerText": "Вперед",
+          "nextQuestionId": 6
+        },
+        {
+          "id": 2,
+          "answerText": "Там много задач",
+          "nextQuestionId": 5
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "questionText": "Ты проиграл, попробуй еще",
+      "answers": [
+        {
+          "id": 1,
+          "answerText": "Я готов попробовать заново!",
+          "nextQuestionId": 1
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "questionText": "Отлично! Ты выбрал Java!",
+      "answers": [
+        {
+          "id": 1,
+          "answerText": "Давай попробуем другой язык программирования?",
+          "nextQuestionId": 1
+        }
+      ]
+    }
   ]
 }

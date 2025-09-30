@@ -13,8 +13,8 @@
             </Policies>
             <DefaultRolloverStrategy max="30">
                 <Delete basePath="logs/" maxDepth="2">
-                    <IfFileName glob="*/quest-*.log" />
-                    <IfLastModified age="7d" />
+                    <IfFileName glob="*/quest-*.log"/>
+                    <IfLastModified age="7d"/>
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingFile>
