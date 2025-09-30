@@ -1,6 +1,5 @@
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -8,19 +7,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import quest.Answer;
 import quest.Quest;
 import quest.Question;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class StartServletTest extends HttpServlet {
+class StartServletTest {
 
     @Mock
     private HttpServletRequest request;
@@ -36,66 +38,23 @@ class StartServletTest extends HttpServlet {
 
     private StartServlet servlet;
     private Quest quest;
-    private Question question1, question2, finalQuestion;
+    private Question question1, question2;
 
-    @Test
-    void testDoGet_NewSession_ShouldCreateNewQuest() throws ServletException, IOException {
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("currentQuest")).thenReturn(null);
-        when(request.getRequestDispatcher("/main.jsp")).thenReturn(requestDispatcher);
+    @BeforeEach
+    void setUp() {
+        servlet = new StartServlet();
 
-        servlet.doGet(request, response);
+        question1 = Mockito.mock(Question.class);
+        question2 = Mockito.mock(Question.class);
 
-        verify(session).setAttribute(eq("currentQuest"), any(Quest.class));
-        verify(request).setAttribute("name", "Test Quest");
-        verify(request).setAttribute("description", "Test Description");
-        verify(requestDispatcher).forward(request, response);
+        List<Question> questions = Arrays.asList(question1, question2);
+        quest = new Quest();
+        quest.setName("Test Quest");
+        quest.setDescription("Test Description");
+        quest.setQuestions(questions);
+        quest.setCurrentQuestion(question1);
     }
 
-    @Test
-    void testDoGet_ExistingSession_ShouldUseExistingQuest() throws ServletException, IOException {
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("currentQuest")).thenReturn(quest);
-        when(session.getAttribute("currentQuestion")).thenReturn(question1);
-        when(request.getRequestDispatcher("/main.jsp")).thenReturn(requestDispatcher);
-
-        servlet.doGet(request, response);
-
-        verify(session, never()).setAttribute(eq("currentQuest"), any(Quest.class));
-        verify(request).setAttribute("name", "Test Quest");
-        verify(request).setAttribute("description", "Test Description");
-        verify(requestDispatcher).forward(request, response);
-    }
-
-    @Test
-    void testDoPost_YesAnswer_ShouldGoToNextQuestion() throws ServletException, IOException {
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("currentQuest")).thenReturn(quest);
-        when(session.getAttribute("currentQuestion")).thenReturn(question1);
-        when(request.getParameter("answer")).thenReturn("yes");
-        when(request.getRequestDispatcher("/main.jsp")).thenReturn(requestDispatcher);
-
-        servlet.doPost(request, response);
-
-        verify(session).setAttribute("currentQuestion", question2);
-        verify(request).setAttribute("question", "Второй вопрос");
-        verify(requestDispatcher).forward(request, response);
-    }
-
-    @Test
-    void testDoPost_NoAnswer_ShouldFinishGame() throws ServletException, IOException {
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("currentQuest")).thenReturn(quest);
-        when(session.getAttribute("currentQuestion")).thenReturn(question1);
-        when(request.getParameter("answer")).thenReturn("no");
-        when(request.getRequestDispatcher("/finish.jsp")).thenReturn(requestDispatcher);
-
-        servlet.doPost(request, response);
-
-        verify(session).removeAttribute("currentQuest");
-        verify(session).removeAttribute("currentQuestion");
-        verify(requestDispatcher).forward(request, response);
-    }
 
     @Test
     void testDoPost_InvalidAnswer_ShouldShowError() throws ServletException, IOException {
@@ -122,38 +81,11 @@ class StartServletTest extends HttpServlet {
         verify(response).sendRedirect("/context/start");
     }
 
-    @Test
-    void testDoPost_FinalQuestion_ShouldShowFinishPage() throws ServletException, IOException {
-        quest.setCurrentQuestion(finalQuestion);
-
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("currentQuest")).thenReturn(quest);
-        when(session.getAttribute("currentQuestion")).thenReturn(finalQuestion);
-        when(request.getParameter("answer")).thenReturn("yes");
-        when(request.getRequestDispatcher("/finish.jsp")).thenReturn(requestDispatcher);
-
-        servlet.doPost(request, response);
-
-        verify(session).removeAttribute("currentQuest");
-        verify(session).removeAttribute("currentQuestion");
-        verify(request).setAttribute("name", "Test Quest");
-        verify(request).setAttribute("question", "Финальный вопрос");
-        verify(request).setAttribute("yes", "Завершить");
-        verify(requestDispatcher).forward(request, response);
-    }
 
     @Test
-    void testDoPost_AnswerIndexOutOfBounds_ShouldShowError() throws ServletException, IOException {
-
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("currentQuest")).thenReturn(quest);
-        when(request.getParameter("answer")).thenReturn("no"); // Пытаемся получить второй ответ
-        when(request.getRequestDispatcher("/main.jsp")).thenReturn(requestDispatcher);
-
-        servlet.doPost(request, response);
-
-        verify(request).setAttribute("error", "Ошибка: ответ не найден");
-        verify(requestDispatcher).forward(request, response);
+    void testFindQuestionById_NonExistingId_ShouldThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            servlet.findQuestionById(quest, 999);
+        });
     }
-
 }

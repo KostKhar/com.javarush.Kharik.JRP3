@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,19 +26,16 @@ public class Quest {
     public void setQuest(Path path) {
         ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path.toString())) {
-            if (inputStream == null) {
-                logger.error("Файл не найден.");
-                throw new NullPointerException();
-            }
             Quest loadedQuest = objectMapper.readValue(inputStream, Quest.class);
-            this.id = loadedQuest.getId(); this.name = loadedQuest.getName();
+            this.id = loadedQuest.getId();
+            this.name = loadedQuest.getName();
             this.description = loadedQuest.getDescription();
             this.currentQuestionId = loadedQuest.getCurrentQuestionId();
             this.currentQuestion = loadedQuest.getCurrentQuestion();
             this.questions = loadedQuest.getQuestions();
         } catch (Exception e) {
-            logger.error("Ошибка загрузки файла");
-            throw new RuntimeException("Ошибка загрузки квеста: " + e.getMessage(), e);
+            logger.error("File not found or not supported");
+            throw new RuntimeException("Exception: " + e.getMessage(), e);
         }
     }
 
