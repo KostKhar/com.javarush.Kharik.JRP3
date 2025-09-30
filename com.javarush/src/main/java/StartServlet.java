@@ -30,7 +30,7 @@ public class StartServlet extends HttpServlet {
             quest = new Quest();
             quest.setQuest(Path.of("quest.json"));
             session.setAttribute("currentQuest", quest);
-            log.info("Game start");
+            log.info("Game started");
         }
 
         Question currentQuestion = quest.getCurrentQuestion();
@@ -50,7 +50,7 @@ public class StartServlet extends HttpServlet {
 
         if (quest == null || currentQuestion == null) {
             resp.sendRedirect(req.getContextPath() + "/start");
-            log.error("session is blocked");
+            log.error("session was blocked");
             return;
         }
 
@@ -82,7 +82,7 @@ public class StartServlet extends HttpServlet {
             session.removeAttribute("currentQuest");
             session.removeAttribute("currentQuestion");
             req.getRequestDispatcher("/finish.jsp").forward(req, resp);
-            log.info("User win " + session.getId());
+            log.info("User was win " + session.getId());
             return;
         }
 
@@ -129,8 +129,7 @@ public class StartServlet extends HttpServlet {
             req.setAttribute("no", answers.get(1).getAnswerText());
             req.getRequestDispatcher("/main.jsp").forward(req, resp);
         } else {
-            // Нет ответов - ошибка
-            req.setAttribute("error", "Ошибка: нет доступных ответов");
+            log.error("Answers was not found");
             req.getRequestDispatcher("/main.jsp").forward(req, resp);
         }
     }
@@ -149,6 +148,7 @@ public class StartServlet extends HttpServlet {
                 return question;
             }
         }
-        return null;
+        log.error("Question was not found");
+      throw new IllegalArgumentException();
     }
 }
