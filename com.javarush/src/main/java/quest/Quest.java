@@ -18,9 +18,11 @@ public class Quest {
     private Integer id;
     private String name;
     private String description;
-    private Long currentQuestionId;
+    private Integer currentQuestionId;
     private Question currentQuestion;
     private List<Question> questions = new LinkedList<>();
+
+
 
     public void setQuest(Path path) {
         ObjectMapper objectMapper = new ObjectMapper();
